@@ -1,0 +1,16 @@
+%%%
+# Finite-window Poisson point processes
+
+Numeric likelihood and intensity helpers. The caller supplies the integrated
+observed intensity; this module constructs no variable-length sampling law.
+%%%
+flatppl_compat = "0.1"
+likelihoods = load_module("src/likelihoods.flatppl")
+intensities = load_module("src/intensities.flatppl")
+configuration_loglikelihood = likelihoods.configuration_loglikelihood
+labelled_loglikelihood = likelihoods.labelled_loglikelihood
+conditional_labelled_loglikelihood = likelihoods.conditional_labelled_loglikelihood
+signal_background_intensity = intensities.signal_background_intensity
+detected_intensity = intensities.detected_intensity
+marked_intensity = intensities.marked_intensity
+quadrature_integral = intensities.quadrature_integral

@@ -1,0 +1,21 @@
+%%%
+# A finite-window event rate
+
+Intensity rate*(1+t) on [0,2], observed at four event times. The known shape
+makes the event count sufficient for rate. Its integral is 4*rate, so the
+Gamma(2,1) shape/rate prior gives the posterior Gamma(6,5). The full unbinned
+log likelihood remains available as a separate function below.
+%%%
+flatppl_compat = "0.1"
+process = load_module("../main.flatppl")
+rate ~ Gamma(2, 1)
+prior = lawof(record(rate = rate))
+event_times = [0.2, 0.8, 1.1, 1.9]
+integrated_shape = process.quadrature_integral([1, 2, 3], [0.5, 1, 0.5])
+observed_count ~ Poisson(rate * integrated_shape)
+forward = kernelof(record(observed_count = observed_count), rate = rate)
+L = likelihoodof(forward, record(observed_count = lengthof(event_times)))
+Pi_post = bayesupdate(L, prior)
+unbinned_loglikelihood(r) = process.configuration_loglikelihood(
+    r .* (1 .+ event_times), r * integrated_shape
+)

@@ -1,0 +1,23 @@
+%%%
+# Poisson process likelihood conventions
+
+Inputs are observed event intensities and their integral over a finite window.
+Configuration reference measure includes 1/N!; labelled coordinates do not.
+%%%
+flatppl_compat = "0.1"
+
+% Unordered configurations, or strictly ordered continuous event times.
+configuration_loglikelihood(event_intensities, expected_count) = (
+    sum(log.(event_intensities)) - expected_count
+)
+
+% Joint count and iid labelled points, with counting times product base measure.
+labelled_loglikelihood(event_intensities, expected_count) = (
+    configuration_loglikelihood(event_intensities, expected_count)
+    - loggamma(lengthof(event_intensities) + 1)
+)
+
+% Iid labelled positions conditional on N; expected_count must be positive.
+conditional_labelled_loglikelihood(event_intensities, expected_count) = (
+    sum(log.(event_intensities)) - lengthof(event_intensities) * log(expected_count)
+)

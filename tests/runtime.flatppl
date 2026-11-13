@@ -1,0 +1,35 @@
+%%%
+# Parametric intensity and score probes
+
+x = [signal yield, background yield, logit efficiency]. Signal density is 2*t
+on [0,1], background density is 1. Binary marks have component-specific laws.
+%%%
+flatppl_compat = "0.1"
+a = load_module("../main.flatppl")
+x = elementof(cartpow(reals, 3))
+signal = x[1]
+background = x[2]
+efficiency = invlogit(x[3])
+unmarked = a.signal_background_intensity([0.2, 0.6, 1.0], [1.0, 1.0, 1.0], signal, background)
+observed = a.detected_intensity(unmarked, 2.0, efficiency)
+signal_marked = a.marked_intensity([0.2, 0.6, 1.0], [0.8, 0.2, 0.8])
+background_marked = a.marked_intensity([1.0, 1.0, 1.0], [0.3, 0.7, 0.3])
+marked = a.detected_intensity(
+    a.signal_background_intensity(signal_marked, background_marked, signal, background),
+    2.0, efficiency
+)
+expected = 2.0 * efficiency * (signal + background)
+grid_intensity = a.detected_intensity(
+    a.signal_background_intensity([0.0, 1.0, 2.0], [1.0, 1.0, 1.0], signal, background),
+    2.0, efficiency
+)
+outputs = [
+    observed[1],
+    a.quadrature_integral(grid_intensity, [0.16666666666666666, 0.6666666666666666, 0.16666666666666666]),
+    a.configuration_loglikelihood(observed, expected),
+    a.labelled_loglikelihood(observed, expected),
+    a.conditional_labelled_loglikelihood(observed, expected),
+    marked[2],
+    a.configuration_loglikelihood(marked, expected),
+]
+inputs = x

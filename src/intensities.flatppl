@@ -1,0 +1,24 @@
+%%%
+# Observed intensities
+
+All multiplication is pointwise. Integration is an explicit separate operation.
+Signal and background shapes are normalized only when their coefficients are
+interpreted as integrated yields.
+%%%
+flatppl_compat = "0.1"
+
+% Add two intensity components; densities share the same event reference measure.
+signal_background_intensity(signal_density, background_density, expected_signal, expected_background) = (
+    expected_signal .* signal_density .+ expected_background .* background_density
+)
+
+% Thin an intrinsic rate by known exposure and detection probability.
+detected_intensity(intrinsic_intensity, exposure, efficiency) = (
+    intrinsic_intensity .* exposure .* efficiency
+)
+
+% Joint event-mark intensity; the conditional mark density integrates to one.
+marked_intensity(spatial_intensity, mark_density) = spatial_intensity .* mark_density
+
+% Caller-selected quadrature weights carry the integration units.
+quadrature_integral(intensity, weights) = sum(intensity .* weights)
