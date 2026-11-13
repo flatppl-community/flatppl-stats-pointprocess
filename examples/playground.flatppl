@@ -7,7 +7,7 @@ Gamma(2,1) shape/rate prior gives the posterior Gamma(6,5). The full unbinned
 log likelihood remains available as a separate function below.
 %%%
 flatppl_compat = "0.1"
-process = load_module("https://raw.githubusercontent.com/BJMCox/flatppl-stats-pointprocess/79a61adc3ae895b0ae83ec022136ec0395f3df13/main.flatppl")
+process = load_module("https://raw.githubusercontent.com/flatppl-community/flatppl-stats-pointprocess/79a61adc3ae895b0ae83ec022136ec0395f3df13/main.flatppl")
 rate ~ Gamma(2, 1)
 prior = lawof(record(rate = rate))
 event_times = [0.2, 0.8, 1.1, 1.9]

@@ -2,7 +2,7 @@
 
 Finite-window Poisson process likelihoods, signal/background intensities, detection exposure, and marked events for FlatPPL 0.1. Library version: **0.1**.
 
-Run the [rate inference example](https://live.flatppl.org/#model=https%3A%2F%2Fraw.githubusercontent.com%2FBJMCox%2Fflatppl-stats-pointprocess%2Fmain%2Fexamples%2Fplayground.flatppl&target=Pi_post) in the live playground. It imports the library from a pinned GitHub commit.
+Run the [rate inference example](https://live.flatppl.org/#model=https%3A%2F%2Fraw.githubusercontent.com%2Fflatppl-community%2Fflatppl-stats-pointprocess%2Fmain%2Fexamples%2Fplayground.flatppl&target=Pi_post) in the live playground. It imports the library from a pinned GitHub commit.
 
 ```flatppl
 flatppl_compat = "0.1"
