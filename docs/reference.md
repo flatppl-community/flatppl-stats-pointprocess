@@ -1,4 +1,6 @@
-# Mathematical reference
+# Point processes reference
+
+Library version **0.1** · [Package overview](../README.md)
 
 Community library version **0.1**, loaded with `load_module("main.flatppl")`. All functions return numeric values. No prior, event window, integration algorithm, normalization, or event selection is implicit.
 
