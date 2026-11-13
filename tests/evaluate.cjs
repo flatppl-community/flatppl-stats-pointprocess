@@ -14,6 +14,9 @@ const { createWorkerHandler } = require(path.join(enginePath, 'worker.ts'));
       .filter(name => name.endsWith('.flatppl')).map(name => dir + '/' + name))];
   const sources = Object.fromEntries(modulePaths
     .map(name => [path.join(root, name), fs.readFileSync(path.join(root, name), 'utf8')]));
+  // Test current source offline while preserving the example's public import path.
+  const published = 'https://raw.githubusercontent.com/BJMCox/flatppl-stats-pointprocess/79a61adc3ae895b0ae83ec022136ec0395f3df13/';
+  for (const name of modulePaths) sources[published + name] = sources[path.join(root, name)];
   const source = expressions ? 'flatppl_compat = "0.1"\na = load_module("../main.flatppl")\n'
     + expressions.map((expression, i) => `probe${i} = ${expression}`).join('\n') : request.source;
   const model = engine.processSource(source, {
