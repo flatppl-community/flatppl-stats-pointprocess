@@ -107,3 +107,17 @@ events ~ PoissonProcess(superpose(
 ```
 
 This is a random count followed by exactly that many points, represented by the built-in ragged process law. It is not an independent random count paired with a separately fixed-length array. Current JS supports scalar finite-window component shapes; current StableHLO does not lower `PoissonProcess`. The numeric helpers avoid that operator and provide the compiled inference path. This library provides no replacement variable-length constructor or simulator.
+
+## Examples and validation
+
+The caller supplies the integrated **observed** intensity over the finite observation window. An expected count is used as given: these helpers never integrate or normalize it. The [reference](reference.md) distinguishes unordered configurations, ordered continuous times, and labelled points, including their factorial factors.
+
+The [posterior example](../examples/playground.flatppl) infers one event-rate parameter with an analytic Gamma posterior. The known event shape makes the count sufficient for rate, so the example uses its exact Poisson likelihood. It also exposes the full unbinned log likelihood. The library does not construct a variable-length sampling law. FlatPPL's built-in `PoissonProcess` provides that law where an engine supports it; see the reference for the distinction and a construction example.
+
+Run the independent mathematical checks with Python's standard library and a current Node.js with TypeScript support:
+
+```sh
+FLATPPL_JS_DIR=/path/to/flatppl-js python tests/check_math.py
+```
+
+The checks use the real JS module loader, independent Poisson count factorizations, finite-window integrals, and an analytic posterior. [The runtime fixture](../tests/runtime.flatppl) and `runtime_oracle`/`RUNTIME_POINTS` in [the checker](../tests/check_math.py) provide seven outputs for compiled value and derivative checks.
