@@ -18,17 +18,21 @@ Community library version **0.1**, loaded with `load_module("main.flatppl")`. Al
 
 Let $W$ be a fixed finite observation window, $\rho$ a fixed parameter-independent event reference measure, and $\lambda=d\mu/d\rho$ a nonnegative integrable observed intensity. The expected detected count is
 
-$$\Lambda=\mu(W)=\int_W\lambda(t)\,d\rho(t)<\infty.$$
+```math
+\Lambda=\mu(W)=\int_W\lambda(t)\,d\rho(t)<\infty.
+```
 
 Use Lebesgue measure for continuous coordinates, counting measure for discrete marks, and their product for marked continuous events. Every supplied intensity value and integral must refer to the **same observed process and window**. Window membership, sorting, array lengths, nonnegativity, and consistency with the integral are caller obligations; helpers accept evaluated intensities rather than event coordinates. They do not check these obligations or repair invalid inputs.
 
 The configuration reference measure $\nu$ is defined for symmetric integrands by
 
-$$\int F\,d\nu=\sum_{n=0}^{\infty}\frac{1}{n!}\int_{W^n}F(\{t_1,\ldots,t_n\})\,d\rho^n.$$
+```math
+\int F\,d\nu=\sum_{n=0}^{\infty}\frac{1}{n!}\int_{W^n}F(\{t_1,\ldots,t_n\})\,d\rho^n.
+```
 
 It includes multiplicities for atomic event spaces. The Poisson configuration density is $e^{-\Lambda}\prod_i\lambda(t_i)$ and integrates to $e^{-\Lambda}\sum_n\Lambda^n/n!=1$. Event array order has no meaning under this convention. This matches FlatPPL's [Poisson processes](https://github.com/flatppl/flatppl-design/blob/main/docs/06-measure-algebra.md#poisson-processes).
 
-For **strictly ordered continuous event times** $t_1<\cdots<t_n$, the reference measure is counting measure in $n$ times ordinary Lebesgue measure restricted to the ordered simplex. The same density applies: the simplex contributes the $1/n!$ volume. Sorting iid continuous points creates this representation. This statement requires non-atomic time coordinates and is not a formula for tied discrete times.
+For **strictly ordered continuous event times** $t_1\lt\cdots\lt t_n$, the reference measure is counting measure in $n$ times ordinary Lebesgue measure restricted to the ordered simplex. The same density applies: the simplex contributes the $1/n!$ volume. Sorting iid continuous points creates this representation. This statement requires non-atomic time coordinates and is not a formula for tied discrete times.
 
 For **a random count and iid labelled points**, the reference measure is counting in $n$ times $\rho^n$ on all labelled tuples. Its density has an additional $1/n!$. A labelled array and an unordered configuration therefore cannot share the same absolute density convention. At fixed observed $n$ this factor is parameter-independent; retaining it matters for normalization, evidence, and comparing different counts or observation conventions.
 
@@ -38,7 +42,7 @@ For **a random count and iid labelled points**, the reference measure is countin
 
 $$\ell_{\rm config}=-\Lambda+\sum_{i=1}^{n}\log\lambda_i.$$
 
-`event_intensities` is a length-$n$ vector of finite nonnegative rates evaluated at the observed events, and `expected_count` is finite and nonnegative. An empty vector gives $-\Lambda$, including $0$ when $\Lambda=0$. Any observed event of zero intensity gives $-\infty$. Negative rates are outside the contract. The function neither divides by $n!$ nor by $\Lambda^n$.
+`event_intensities` is a vector of length $n$ containing finite nonnegative rates evaluated at the observed events, and `expected_count` is finite and nonnegative. An empty vector gives $-\Lambda$, including $0$ when $\Lambda=0$. Any observed event of zero intensity gives $-\infty$. Negative rates are outside the contract. The function neither divides by $n!$ nor by $\Lambda^n$.
 
 ### `labelled_loglikelihood`
 
