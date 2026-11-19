@@ -1,8 +1,8 @@
 %%%
 # Finite-window Poisson point processes
 
-Numeric likelihood and intensity helpers. The caller supplies the integrated
-observed intensity; this module constructs no variable-length sampling law.
+For event intensities lambda[n] and observed integral Lambda, the configuration
+log score is sum(log(lambda)) - Lambda. Labelled points subtract log(n!).
 %%%
 flatppl_compat = "0.1"
 likelihoods = load_module("src/likelihoods.flatppl")

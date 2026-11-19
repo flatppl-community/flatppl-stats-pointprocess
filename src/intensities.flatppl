@@ -21,4 +21,4 @@ detected_intensity(intrinsic_intensity, exposure, efficiency) = (
 marked_intensity(spatial_intensity, mark_density) = spatial_intensity .* mark_density
 
 % Caller-selected quadrature weights carry the integration units.
-quadrature_integral(intensity, weights) = sum(intensity .* weights)
+quadrature_integral(intensity, weights) = (rowstack([intensity]) * weights)[1]
