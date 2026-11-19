@@ -32,7 +32,7 @@ The configuration reference measure $\nu$ is defined for symmetric integrands by
 
 It includes multiplicities for atomic event spaces. The Poisson configuration density is $e^{-\Lambda}\prod_i\lambda(t_i)$ and integrates to $e^{-\Lambda}\sum_n\Lambda^n/n!=1$. Event array order has no meaning under this convention. This matches FlatPPL's [Poisson processes](https://github.com/flatppl/flatppl-design/blob/main/docs/06-measure-algebra.md#poisson-processes).
 
-For **strictly ordered continuous event times** $t_1<\cdots<t_n$, the reference measure is counting measure in $n$ times ordinary Lebesgue measure restricted to the ordered simplex. The same density applies: the simplex contributes the $1/n!$ volume. Sorting iid continuous points creates this representation. This statement requires non-atomic time coordinates and is not a formula for tied discrete times.
+For **strictly ordered continuous event times** $t_1\lt\cdots\lt t_n$, the reference measure is counting measure in $n$ times ordinary Lebesgue measure restricted to the ordered simplex. The same density applies: the simplex contributes the $1/n!$ volume. Sorting iid continuous points creates this representation. This statement requires non-atomic time coordinates and is not a formula for tied discrete times.
 
 For **a random count and iid labelled points**, the reference measure is counting in $n$ times $\rho^n$ on all labelled tuples. Its density has an additional $1/n!$. A labelled array and an unordered configuration therefore cannot share the same absolute density convention. At fixed observed $n$ this factor is parameter-independent; retaining it matters for normalization, evidence, and comparing different counts or observation conventions.
 
