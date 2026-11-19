@@ -18,13 +18,17 @@ Community library version **0.1**, loaded with `load_module("main.flatppl")`. Al
 
 Let $W$ be a fixed finite observation window, $\rho$ a fixed parameter-independent event reference measure, and $\lambda=d\mu/d\rho$ a nonnegative integrable observed intensity. The expected detected count is
 
-$$\Lambda=\mu(W)=\int_W\lambda(t)\,d\rho(t)<\infty.$$
+```math
+\Lambda=\mu(W)=\int_W\lambda(t)\,d\rho(t)<\infty.
+```
 
 Use Lebesgue measure for continuous coordinates, counting measure for discrete marks, and their product for marked continuous events. Every supplied intensity value and integral must refer to the **same observed process and window**. Window membership, sorting, array lengths, nonnegativity, and consistency with the integral are caller obligations; helpers accept evaluated intensities rather than event coordinates. They do not check these obligations or repair invalid inputs.
 
 The configuration reference measure $\nu$ is defined for symmetric integrands by
 
-$$\int F\,d\nu=\sum_{n=0}^{\infty}\frac{1}{n!}\int_{W^n}F(\{t_1,\ldots,t_n\})\,d\rho^n.$$
+```math
+\int F\,d\nu=\sum_{n=0}^{\infty}\frac{1}{n!}\int_{W^n}F(\{t_1,\ldots,t_n\})\,d\rho^n.
+```
 
 It includes multiplicities for atomic event spaces. The Poisson configuration density is $e^{-\Lambda}\prod_i\lambda(t_i)$ and integrates to $e^{-\Lambda}\sum_n\Lambda^n/n!=1$. Event array order has no meaning under this convention. This matches FlatPPL's [Poisson processes](https://github.com/flatppl/flatppl-design/blob/main/docs/06-measure-algebra.md#poisson-processes).
 
@@ -38,7 +42,7 @@ For **a random count and iid labelled points**, the reference measure is countin
 
 $$\ell_{\rm config}=-\Lambda+\sum_{i=1}^{n}\log\lambda_i.$$
 
-`event_intensities` is a length-$n$ vector of finite nonnegative rates evaluated at the observed events, and `expected_count` is finite and nonnegative. An empty vector gives $-\Lambda$, including $0$ when $\Lambda=0$. Any observed event of zero intensity gives $-\infty$. Negative rates are outside the contract. The function neither divides by $n!$ nor by $\Lambda^n$.
+`event_intensities` is a vector of length $n$ containing finite nonnegative rates evaluated at the observed events, and `expected_count` is finite and nonnegative. An empty vector gives $-\Lambda$, including $0$ when $\Lambda=0$. Any observed event of zero intensity gives $-\infty$. Negative rates are outside the contract. The function neither divides by $n!$ nor by $\Lambda^n$.
 
 ### `labelled_loglikelihood`
 
