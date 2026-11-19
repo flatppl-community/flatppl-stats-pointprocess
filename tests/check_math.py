@@ -201,6 +201,15 @@ def run():
     )
     # Explicit expected counts are used unchanged, even without normalized shapes.
     close(evaluate(["a.configuration_loglikelihood([2.0],7.0)"]), [math.log(2) - 7])
+    close(
+        evaluate(
+            [
+                "a.quadrature_integral(fill(0.0,0),fill(0.0,0))",
+                "a.quadrature_integral([3.0],[0.25])",
+            ]
+        ),
+        [0.0, 0.75],
+    )
     source = (ROOT / "tests/runtime.flatppl").read_text()
     for x in RUNTIME_POINTS:
         fixed = source.replace("elementof(cartpow(reals, 3))", json.dumps(x))
